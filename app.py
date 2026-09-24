@@ -138,13 +138,26 @@ with col1:
     )
 
     cp = st.selectbox(
-        "Select chest pain type",
+        "What type of chest pain is mentioned in the medical report?",
         [
             "Typical angina",
             "Atypical angina",
             "Non-anginal pain",
             "Asymptomatic"
-        ]
+        ],
+        format_func=lambda x: {
+            "Typical angina":
+                "Typical angina — chest pressure/pain, often during activity",
+
+            "Atypical angina":
+                "Atypical angina — chest pain with some unusual symptoms",
+
+            "Non-anginal pain":
+                "Non-anginal pain — chest pain that does not match typical heart pain",
+
+            "Asymptomatic":
+                "Asymptomatic — no chest pain"
+        }[x]
     )
 
     chol = st.number_input(
@@ -346,7 +359,6 @@ if predict_button:
 
     st.header("📊 Prediction Result")
 
-
     if prediction[0] == 1:
 
         st.warning("⚠️ Higher estimated risk detected")
@@ -357,7 +369,6 @@ if predict_button:
             "medical diagnosis. Please consult a qualified healthcare "
             "professional for medical advice."
         )
-
 
     else:
 
